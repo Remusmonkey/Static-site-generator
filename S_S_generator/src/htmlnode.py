@@ -1,13 +1,39 @@
-html_hyperlink = "a"
-html_paragraph = "p"
-html_bold = "b"
-html_italics = "i"
-html_link = "a"
-html_image = "img"
-html_unordered_list = "ul"
-html_ordered_list = "ol"
-html_quote = "blockquote"
-html_code = "code"
+html_tags = {
+    "p": ("<p>", "</p>"),
+    "div": ("<div>", "</div>"),
+    "h1": ("<h1>", "</h1>"),
+    "h2": ("<h2>", "</h2>"),
+    "h3": ("<h3>", "</h3>"),
+    "span": ("<span>", "</span>"),
+    "a": ("<a href='#'>", "</a>"),
+    "img": ("<img src='#' alt='", "' />"),  # No closing tag, this is self-closing
+    "ul": ("<ul>", "</ul>"),
+    "ol": ("<ol>", "</ol>"),
+    "li": ("<li>", "</li>"),
+    "strong": ("<strong>", "</strong>"),
+    "em": ("<em>", "</em>"),
+    "table": ("<table>", "</table>"),
+    "tr": ("<tr>", "</tr>"),
+    "th": ("<th>", "</th>"),
+    "td": ("<td>", "</td>"),
+    "br": ("<br />", ""),  # No closing tag for line breaks
+    "hr": ("<hr />", ""),  # No closing tag for horizontal rules
+    "blockquote": ("<blockquote>", "</blockquote>"),
+    "code": ("<code>", "</code>"),
+    "pre": ("<pre>", "</pre>"),
+    "nav": ("<nav>", "</nav>"),
+    "header": ("<header>", "</header>"),
+    "footer": ("<footer>", "</footer>"),
+    "section": ("<section>", "</section>"),
+    "article": ("<article>", "</article>"),
+    "aside": ("<aside>", "</aside>"),
+    "form": ("<form>", "</form>"),
+    "input": ("<input type='text' value='", "' />"),  # Self-closing input element
+    "button": ("<button>", "</button>"),
+    "label": ("<label>", "</label>"),
+    "select": ("<select>", "</select>"),
+    "option": ("<option>", "</option>")
+}
 
 
 class HTMLNode:
@@ -27,3 +53,11 @@ class HTMLNode:
         return html_props
     def __repr__(self):
         return f"HTMLNode({self.tag}, {self.value}, {self.children}, {self.props})"
+
+class LeafNode(HTMLNode):
+    def __init__(self, tag=None, value, props=None):
+        super().__init__(tag, value, props)
+    def leaf_to_html(self):
+        leafnode = LeafNode(self)
+
+
