@@ -1,12 +1,13 @@
 html_tags = {
     "p": ("<p>", "</p>"),
+    "b": ("<b>", "</b>"),
     "div": ("<div>", "</div>"),
     "h1": ("<h1>", "</h1>"),
     "h2": ("<h2>", "</h2>"),
     "h3": ("<h3>", "</h3>"),
     "span": ("<span>", "</span>"),
-    "a": ("<a href='#'>", "</a>"),
-    "img": ("<img src='#' alt='", "' />"),  # No closing tag, this is self-closing
+    "a": ("<a href='{}'>", "</a>"),
+    "img": ("<img src='{}' alt='", "' />"),  # No closing tag, this is self-closing
     "ul": ("<ul>", "</ul>"),
     "ol": ("<ol>", "</ol>"),
     "li": ("<li>", "</li>"),
@@ -55,9 +56,20 @@ class HTMLNode:
         return f"HTMLNode({self.tag}, {self.value}, {self.children}, {self.props})"
 
 class LeafNode(HTMLNode):
-    def __init__(self, tag=None, value, props=None):
+    def __init__(self, tag=None, value=None, props=None):
         super().__init__(tag, value, props)
-    def leaf_to_html(self):
-        leafnode = LeafNode(self)
+        #self.tag = tag
+    def to_html(self):
+        if self.value == None:
+            raise ValueError ("All leaf nodes must have a value")
+        if self.tag in html_tags:
+            start_tag, end_tag = html_tags[self.tag]
+            return f'{start_tag}{self.value}{end_tag}'
+        else:
+            return f"{self.value}"
+
+        
+        
+        
 
 
