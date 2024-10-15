@@ -8,7 +8,7 @@ testnode1 = HTMLNode(html_hyperlink, "This is the HTML text", None, properties)
 testnode2 = HTMLNode("a", "This is the HTML text", None, properties)
 leafnode1 = LeafNode("p", "This is a paragraph of text.")
 leafnode2 = LeafNode("b", "This is some bold text")
-
+node = ParentNode("p",[LeafNode("b", "Bold text"), LeafNode(None, "Normal text"), LeafNode("i", "italic text"), LeafNode(None, "Normal text"), ],)
 class TestHTMLNode(unittest.TestCase):
     def test_repr(self):
         test_node = HTMLNode("a", "This is the HTML text", None, properties)
@@ -35,6 +35,12 @@ class TestLeafNode(unittest.TestCase):
     def test_no_tag(self):
         node = LeafNode(None, "LeafNode - No tag works just fine")
         print(node.to_html())
+    
+    def test_ParentNode_general_function(self):
+        #node = ParentNode("p",[LeafNode("b", "Bold text"), LeafNode(None, "Normal text"), LeafNode("i", "italic text"), LeafNode(None, "Normal text"), ],)
+        expected = "<p><b>Bold text</b>Normal text<i>italic text</i>Normal text</p>"
+        self.assertEqual(node.to_html(), expected)
+
 
 if __name__ == "__main__":
     unittest.main()

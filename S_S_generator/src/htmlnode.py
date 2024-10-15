@@ -106,9 +106,28 @@ class ParentNode(HTMLNode):
                 raise ValueError ("Invalid child type")
         result += f"</{self.tag}>"
         return result
-        
-        
-        
+    def __repr__(self):
+        return f"HTMLNode({self.tag}, {self.value}, {self.children}, {self.props})"   
+# This is my original code, and I was actually on the right track of using for child in self.children but I was ultimately making it harder than it needed to be
+# Also Boots took me down a much more lengthy path
+# class ParentNode(HTMLNode):
+#     def __init__(self, tag, children, props=None):
+#         super().__init__(tag, None, children, props)
+#     def to_html(self):
+#         if self.tag == None:
+#             raise ValueError ("Cannot Format: Tag required")
+#         if self.children == None:
+#             raise ValueError ("Node Children required")
+#         if len(self.children) == 1:
+#             leaf = self.children[0]
+#             return f"{self.tag}{leaf.to_html}{self.tag}"
+#         else:
+
+# This is the part I was having a hard time on with on the recursion:
+#children_html = ""
+#         for child in self.children:
+#             children_html += child.to_html()
+#         return f"<{self.tag}{self.props_to_html()}>{children_html}</{self.tag}>"
         
         
 
