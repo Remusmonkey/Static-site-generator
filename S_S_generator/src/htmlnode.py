@@ -66,10 +66,10 @@ class LeafNode(HTMLNode):
             return self.value
         return f"<{self.tag}{self.props_to_html()}>{self.value}</{self.tag}>"
 
-    # This was my original code. Keeping it here to remind me to think about it vs the code above this
+    # This was my original code. ^^^ Keeping it here to remind me to think about it vs the code above this ^^^^
     # The self.props_to_html part in the above code is important to remember.  I didn't fully consider it 
     # when I was thinking about my code below.  I thought I needed to create a master html tags list like at
-    # the top of this code.
+    # the top of this code file.
     # def to_html(self):
     #     if self.value == None:
     #         raise ValueError ("Invalid HTML: no value")
@@ -96,16 +96,10 @@ class ParentNode(HTMLNode):
             raise ValueError ("Cannot Format: Tag required")
         if self.children == None:
             raise ValueError ("Node Children required")
-        result = f"<{self.tag}>"
+        children_html = ""
         for child in self.children:
-            if isinstance(child, ParentNode):
-                result += child.to_html()
-            elif isinstance(child, LeafNode):
-                result+= child.to_html()
-            else:
-                raise ValueError ("Invalid child type")
-        result += f"</{self.tag}>"
-        return result
+            children_html += child.to_html()
+        return f"<{self.tag}{self.props_to_html()}>{children_html}</{self.tag}>"
     def __repr__(self):
         return f"HTMLNode({self.tag}, {self.value}, {self.children}, {self.props})"   
 # This is my original code, and I was actually on the right track of using for child in self.children but I was ultimately making it harder than it needed to be
